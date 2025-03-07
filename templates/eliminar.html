@@ -1,44 +1,38 @@
-{% extends "layaout.html" %} {% block container %}
-<div class="flex justify-center items-center h-screen">
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <div class="flex justify-end px-4 pt-4">
-            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5"
-                type="button">
-                <span class="sr-only">Open dropdown</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 16 3">
-                    <path
-                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                </svg>
-            </button>
-            <!-- Dropdown menu -->
-            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                <ul class="py-2" aria-labelledby="dropdownButton">
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export
-                            Data</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                    </li>
-                </ul>
+{% extends "layaout.html" %} {% block container %} {% import "_macros.html" as macros %}
+
+<div class="flex justify-center mt-8">
+    <form class="max-w-md w-full" method="POST" novalidate>
+        {{ form.csrf_token }}
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="id" value="{{ form.id.data }}" />
+
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                {{ macros.campoNuevo(form.nombre, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-dark dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600
+                peer") }}
             </div>
-        </div>
-        <div class="flex flex-col items-center pb-10">
-            <a href="/" title="Volver al inicio">
-                <img class="w-24 h-24 mb-3 rounded-full shadow-lg cursor-pointer" src="./static/img/mario.jpg" alt="Bonnie image" />
-            </a>
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Bonnie Green</h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
-            <div class="flex mt-4 md:mt-6">
-                <a href="/eliminar?id={{id}}&estado=1" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Eliminar</a>
-                <a href="/index.html" class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</a>
+
+            <div class="relative z-0 w-full mb-5 group">
+                {{ macros.campoNuevo(form.apaterno, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-dark dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0
+                focus:border-blue-600 peer") }}
             </div>
         </div>
 
-    </div>
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macros.campoNuevo(form.email, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-dark dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600
+            peer") }}
+        </div>
+
+        <div class="flex justify-between mt-6">
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Eliminar
+            </button>
+
+            <button type="button" class="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                Cancelar
+            </button>
+        </div>
+    </form>
 </div>
+
 {% endblock %}
